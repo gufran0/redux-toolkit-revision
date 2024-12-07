@@ -1,6 +1,9 @@
-const { createSlice } = require("@reduxjs/toolkit");
-const createAsyncThunk = require("@reduxjs/toolkit").createAsyncThunk;
-const axios = require("axios");
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+// import {} from "@reduxjs/toolkit"
+// const { createSlice } = require("@reduxjs/toolkit");
+// const createAsyncThunk = require("@reduxjs/toolkit").createAsyncThunk;
+// const axios = require("axios");
 
 const initialState = {
   loading: false,
@@ -10,11 +13,11 @@ const initialState = {
 
 // Generate lifecycle methods automatically: pending, fulfilled, and rejected action types
 
-const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
+export const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
   return axios
     .get("https://jsonplaceholder.typicode.com/users")
     .then((response) => {
-      return response.data.map((user) => user.id);
+      return response.data;
     });
   // Returning only user IDs, but you could return full user data if needed
 });
@@ -43,6 +46,7 @@ const userSlice = createSlice({
     });
   },
 });
+export default userSlice.reducer;
 
-module.exports = userSlice.reducer;
-module.exports.fetchUsers = fetchUsers;
+// module.exports = userSlice.reducer;
+// module.exports.fetchUsers = fetchUsers;
